@@ -12,7 +12,7 @@ _resolve_symlinks() {
     _assert_no_path_cycles "$@" || return
 
     local dir_context path
-    path=$(readlink -- "$1")
+    path=$(readlink -- "$1" 2>/dev/null)
     if [ $? -eq 0 ]; then
         dir_context=$(dirname -- "$1")
         _resolve_symlinks "$(_prepend_dir_context_if_necessary "$dir_context" "$path")" "$@"
